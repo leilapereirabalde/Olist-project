@@ -1,0 +1,65 @@
+
+
+
+
+Q1
+SELECT TOP (1) CountryRegionCode, Name AS country_name, MAX(SalesYTD) + MAX(SalesLastYear) as total_sales
+FROM sales.SalesTerritory
+GROUP BY CountryRegionCode, Name
+ORDER by total_sales DESC;
+
+
+
+#Additional Q1
+SELECT Name AS country_name, CountryRegionCode, MAX(SalesYTD) + MAX(SalesLastYear) as total_sales
+FROM sales.SalesTerritory
+WHERE CountryRegionCode = 'US'
+GROUP BY Name, CountryRegionCode
+ORDER BY total_sales DESC;
+
+
+
+Q2
+SELECT e.VacationHours as annual_leave, s.bonus
+FROM HumanResources.Employee as e
+INNER JOIN Sales.SalesPerson as s
+ON e.BusinessEntityID = s.BusinessEntityID;
+
+
+
+Q3
+SELECT Name,SalesYTD + SalesLastYear AS total_sum
+FROM Sales.SalesTerritory
+GROUP BY Name,SalesYTD, SalesLastYear
+ORDER BY total_sum DESC;
+
+
+
+Q4
+SELECT JobTitle, SickLeaveHours
+FROM HumanResources.Employee
+ORDER BY SickLeaveHours DESC;
+
+
+
+#Additional Q4
+SELECT OrganizationLevel, AVG(SickLeaveHours) AS AvgSickLeaveHours
+FROM HumanResources.Employee
+WHERE OrganizationLevel IS NOT NULL
+GROUP BY OrganizationLevel
+ORDER BY OrganizationLevel DESC;
+  
+
+
+Q5
+SELECT Name, YearOpened, AnnualRevenue, 2019 - YearOpened AS trade_duration
+FROM Sales.vStoreWithDemographics
+GROUP BY Name, YearOpened, AnnualRevenue
+ORDER BY trade_duration DESC;
+ 
+
+
+Q6
+SELECT SquareFeet AS store_size_sqfeet, AnnualRevenue, NumberEmployees
+FROM Sales.vStoreWithDemographics
+ORDER BY NumberEmployees DESC;
